@@ -1,50 +1,74 @@
-package com.javatechie.crud.example.controller;
+package com.myexamques.controller;
 
-import com.javatechie.crud.example.entity.Product;
-import com.javatechie.crud.example.service.ProductService;
+import com.myexamques.entity.RequestObject;
+import com.myexamques.entity.Option;
+import com.myexamques.entity.Question;
+import com.myexamques.service.OptionService;
+import com.myexamques.service.QuestionService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-public class ProductController {
+public class QuesController {
 
     @Autowired
-    private ProductService service;
+    private QuestionService service;
+    
+    @Autowired
+    private OptionService serviceOpt;
 
-    @PostMapping("/addProduct")
-    public Product addProduct(@RequestBody Product product) {
-        return service.saveProduct(product);
+
+    @PostMapping("/addquestion2")
+    public Question addQuestion2(@RequestBody RequestObject exam) {
+    	System.out.println("WHy???");
+//    	Question question=exam.getQuestion();
+//    	List<Option> op=question.getOptions();
+//    	System.out.println(op.toString());
+//    	
+//    	serviceOpt.saveOptions(op);
+        return service.saveQuestion(exam.getQuestion());
     }
 
-    @PostMapping("/addProducts")
-    public List<Product> addProducts(@RequestBody List<Product> products) {
-        return service.saveProducts(products);
+  
+    @PostMapping("/addquestions")
+    public List<Question> addQuestions(@RequestBody List<Question> question) {
+        return service.saveQuestions(question);
     }
 
-    @GetMapping("/products")
-    public List<Product> findAllProducts() {
-        return service.getProducts();
+    @GetMapping("/questions")
+    public List<Question> findAllQuestions() {
+    	System.out.println("At controller");
+        return service.getQuestions();
     }
 
-    @GetMapping("/productById/{id}")
-    public Product findProductById(@PathVariable int id) {
-        return service.getProductById(id);
+    @GetMapping("/questionById/{id}")
+    public Question findQuestionById(@PathVariable int id) {
+    	System.out.println("My ID is:"+id);
+    	System.out.println(service.getQuestionById(id));
+        return service.getQuestionById(id);
     }
 
-    @GetMapping("/product/{name}")
-    public Product findProductByName(@PathVariable String name) {
-        return service.getProductByName(name);
-    }
+//    @GetMapping("/product/{name}")
+//    public Question findProductByName(@PathVariable String name) {
+//        return service.getProductByName(name);
+//    }
 
-    @PutMapping("/update")
-    public Product updateProduct(@RequestBody Product product) {
-        return service.updateProduct(product);
-    }
+//    @PutMapping("/update")
+//    public Question updateProduct(@RequestBody Question product) {
+//        return service.updateProduct(product);
+//    }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable int id) {
-        return service.deleteProduct(id);
+    public String deleteQuestion(@PathVariable int id) {
+        return service.deleteQuestion(id);
+    }
+    @RequestMapping("/")
+    @ResponseBody
+    public String welcome() {
+    	System.out.println("First Request");
+        return "Welcome to RestTemplate Example.";
     }
 }

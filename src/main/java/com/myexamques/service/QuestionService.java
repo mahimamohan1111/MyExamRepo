@@ -1,49 +1,52 @@
-package com.javatechie.crud.example.service;
+package com.myexamques.service;
 
-import com.javatechie.crud.example.entity.Product;
-import com.javatechie.crud.example.repository.ProductRepository;
+import com.myexamques.entity.Question;
+import com.myexamques.repository.QuestionRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ProductService {
+public class QuestionService {
     @Autowired
-    private ProductRepository repository;
+    private QuestionRepository repository;
 
-    public Product saveProduct(Product product) {
-        return repository.save(product);
+    public Question saveQuestion(Question question) {
+        return repository.save(question);
     }
 
-    public List<Product> saveProducts(List<Product> products) {
-        return repository.saveAll(products);
+    public List<Question> saveQuestions(List<Question> question) {
+        return repository.saveAll(question);
     }
 
-    public List<Product> getProducts() {
+    public List<Question> getQuestions() {
+    	System.out.println("reading from service");
         return repository.findAll();
     }
 
-    public Product getProductById(int id) {
+    public Question getQuestionById(int id) {
+    	System.out.println("Getting Ques By ID "+id);
         return repository.findById(id).orElse(null);
     }
 
-    public Product getProductByName(String name) {
-        return repository.findByName(name);
-    }
+//    public Question getProductByName(String name) {
+//        return repository.findByName(name);
+//    }
 
-    public String deleteProduct(int id) {
+    public String deleteQuestion(int id) {
         repository.deleteById(id);
-        return "product removed !! " + id;
+        return "question removed !! " + id;
     }
 
-    public Product updateProduct(Product product) {
-        Product existingProduct = repository.findById(product.getId()).orElse(null);
-        existingProduct.setName(product.getName());
-        existingProduct.setQuantity(product.getQuantity());
-        existingProduct.setPrice(product.getPrice());
-        return repository.save(existingProduct);
-    }
+//    public Question updateProduct(Question product) {
+//        Question existingProduct = repository.findById(product.getId()).orElse(null);
+//        existingProduct.setName(product.getName());
+//        existingProduct.setQuantity(product.getQuantity());
+//        existingProduct.setPrice(product.getPrice());
+//        return repository.save(existingProduct);
+//    }
 
 
 }
